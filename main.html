@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обратный отсчет до субботы 9:20</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .countdown {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .total {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+        .sleep {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Обратный отсчет до субботы 9:20</h1>
+
+    <div class="countdown" id="countdown"></div>
+    <div class="total" id="totalHours"></div>
+    <div class="total" id="totalMinutes"></div>
+    <div class="sleep" id="sleepHours"></div>
+
+    <script>
+        function updateCountdown() {
+            // Текущая дата и время
+            const now = new Date();
+            
+            // Следующая суббота в 9:20
+            let nextSaturday = new Date();
+            nextSaturday.setDate(now.getDate() + (6 - now.getDay() + 7) % 7); // Следующая суббота
+            nextSaturday.setHours(9, 20, 0, 0); // Устанавливаем 9:20:00
+
+            // Если уже суббота и время больше 9:20, переходим на следующую неделю
+            if (now > nextSaturday) {
+                nextSaturday.setDate(nextSaturday.getDate() + 7);
+            }
+
+            // Разница во времени
+            const diff = nextSaturday - now;
+
+            // Преобразуем разницу в дни, часы, минуты и секунды
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            // Общие оставшиеся часы и минуты
+            const totalHours = Math.floor(diff / (1000 * 60 * 60));
+            const totalMinutes = Math.floor(diff / (1000 * 60));
+
+            // Часы с учетом сна (минус 8 часов на каждую ночь)
+            const remainingNights = days; // каждая ночь до субботы
+            const sleepAdjustedHours = totalHours - (remainingNights * 8);
+
+            // Обновляем HTML
+            document.getElementById("countdown").innerHTML = `${days} дней ${hours} часов ${minutes} минут ${seconds} секунд`;
+            document.getElementById("totalHours").innerHTML = `Всего часов: ${totalHours}`;
+            document.getElementById("totalMinutes").innerHTML = `Всего минут: ${totalMinutes}`;
+            document.getElementById("sleepHours").innerHTML = `Часы, исключая сон: ${sleepAdjustedHours}`;
+
+            // Обновляем каждую секунду
+            setTimeout(updateCountdown, 1000);
+        }
+
+        updateCountdown();
+    </script>
+
+</body>
+</html>
