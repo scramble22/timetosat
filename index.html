@@ -16,6 +16,8 @@
             margin: 0;
             background-color: #f8e9f3;
             color: #333;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         h1 {
@@ -24,14 +26,9 @@
             color: #ff6b81;
             margin-bottom: 20px;
             position: relative;
+            text-align: center;
         }
 
-        h1::after {
-            content: "💖";
-            position: absolute;
-            right: -40px;
-            top: 0;
-        }
 
         .countdown {
             font-size: 2em;
@@ -40,6 +37,9 @@
             padding: 15px 25px;
             border-radius: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 100%;
+            word-wrap: break-word;
         }
 
         .total, .sleep {
@@ -49,6 +49,9 @@
             padding: 10px 20px;
             border-radius: 15px;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 100%;
+            word-wrap: break-word;
         }
 
         .sleep {
@@ -59,10 +62,53 @@
             margin-top: 30px;
             font-size: 1.2em;
             color: #ff6b81;
+            text-align: center;
         }
 
         footer .heart {
             color: #ff6b81;
+        }
+
+        /* Адаптивные стили */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .countdown, .total, .sleep {
+                font-size: 1.3em;
+                padding: 10px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .countdown, .total, .sleep {
+                font-size: 1.2em;
+                padding: 10px;
+            }
+
+            h1::after {
+                right: -20px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .countdown, .total, .sleep {
+                font-size: 1em;
+                padding: 8px;
+            }
+
+            h1::after {
+                display: none;
+            }
         }
     </style>
 </head>
